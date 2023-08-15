@@ -1,0 +1,38 @@
+---
+title: "Report on Gun Murders"
+author: "Felipe Tornquist"
+date: "2023-08-14"
+output: pdf_document
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+
+```
+
+## Introduction
+
+This is a report on 2010 gun murder rate obtained from FBI reports. The original data was obtained from here (https://en.wikipedia.org/wiki/Gun_violence_in_the_United_States).
+
+We are to use the following library:
+
+```{r loading-libs, message=FALSE}
+library(tidyverse)
+```
+and load the data we already wrangled:
+
+```{r}
+load('rda/murders.rda')
+```
+
+## Murders rate by state
+We note the large state to state variability by generating a barplot showing the murder rate by state:
+
+```{r murder-rate-by-state, echo=FALSE}
+murders%>%mutate(abb=reorder(abb,rate))%>%
+  ggplot(aes(abb,rate))+
+  geom_bar(width=0.5,stat="identity",colour="black")+
+  coord_flip()+
+  theme_dark()
+```
+
+
